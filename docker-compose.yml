@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  back-end:
+    container_name: motors-shop-back
+    build:
+      context: ./backend/
+    ports:
+      - $PORT:$PORT
+    env_file:
+      - .env
+    depends_on:
+      database:
+        condition: service_healthy
+    command: sh -c "yarn prisma migrate dev && yarn start:dev"
+    volumes:
+      - ./backend/:/app 
+    
+  database:
+    container_name: motors-shop
+    image: postgres:15
+    ports:
+      - 5432:5432
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
