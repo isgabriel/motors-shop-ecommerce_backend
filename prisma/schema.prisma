@@ -9,3 +9,35 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model CarProducts {
+  id          String   @id
+  name        String
+  coverImg    String
+  price       Int
+  year        Int
+  km          Int
+  description String
+  color       String
+  gasoline    Gasoline @default(FLEX)
+  tablePife   Int
+  business    Boolean  @default(false)
+
+  img   Img    @relation(fields: [imgId], references: [id])
+  imgId String
+
+  @@map("carProducts")
+}
+
+enum Gasoline {
+  FLEX
+  HIBRID
+  ELECTRIC
+}
+
+model Img {
+  id          String        @id
+  img         String
+  CarProducts CarProducts[]
+  @@map("img")
+}
