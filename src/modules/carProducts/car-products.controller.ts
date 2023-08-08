@@ -13,7 +13,7 @@ import { CarProductsService } from './car-products.service';
 import { CreateCarProductsDto } from './dto/create-car-product.dto';
 import { UpdateCarProductDto } from './dto/update-car-product.dto';
 
-@Controller('car-products')
+@Controller('car')
 export class CarProductsController {
   constructor(private readonly carProductsService: CarProductsService) {}
 
@@ -29,7 +29,7 @@ export class CarProductsController {
 
   @Get(':id')
   findOne(@Param('id', ParseUUIDPipe) id: string) {
-    return this.carProductsService.findOne(+id);
+    return this.carProductsService.findOne(id);
   }
 
   @Patch(':id')
@@ -37,11 +37,11 @@ export class CarProductsController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateCarProductDto: UpdateCarProductDto,
   ) {
-    return this.carProductsService.update(+id, updateCarProductDto);
+    return this.carProductsService.update(id, updateCarProductDto);
   }
 
   @Delete(':id')
   remove(@Param('id', ParseUUIDPipe) id: string) {
-    return this.carProductsService.remove(+id);
+    return this.carProductsService.remove(id);
   }
 }

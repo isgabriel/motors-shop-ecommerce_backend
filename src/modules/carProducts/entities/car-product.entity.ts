@@ -1,10 +1,11 @@
 /* eslint-disable prettier/prettier */
+import { Gasoline } from '@prisma/client';
 import { randomUUID } from 'crypto';
 
 export class CarProduct {
   readonly id: string;
   name: string;
-  cover: string;
+  coverImg: string;
   price: number;
   year: number;
   km: number;
@@ -13,15 +14,9 @@ export class CarProduct {
   gasoline: Gasoline;
   tablePife: number;
   business: boolean;
-  imgId: string;
+  imgId?: string;
 
   constructor() {
     this.id = randomUUID();
   }
-}
-
-export enum Gasoline {
-  flex = 'FLEX',
-  hibrid = 'HIBRID',
-  electric = 'ELECTRIC',
 }
