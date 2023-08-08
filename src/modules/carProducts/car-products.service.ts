@@ -1,26 +1,49 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { CreateCarProductsDto } from './dto/create-car-product.dto';
 import { UpdateCarProductDto } from './dto/update-car-product.dto';
+import { CarProductRepository } from './repositories/carProducts.repository';
+import { NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class CarProductsService {
-  create(createCarProductDto: CreateCarProductsDto) {
-    return 'This action adds a new carProduct';
+  constructor(private carRepository: CarProductRepository) {}
+
+  async create(createCarProductDto: CreateCarProductsDto) {
+    return await this.carRepository.create(createCarProductDto);
   }
 
-  findAll() {
-    return `This action returns all carProducts`;
+  async findAll() {
+    return await this.carRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} carProduct`;
+  async findOne(id: string) {
+    const findId = await this.carRepository.findOne(id);
+
+    if (!findId) {
+      throw new NotFoundException('Car not found!');
+    }
+
+    return findId;
   }
 
-  update(id: number, updateCarProductDto: UpdateCarProductDto) {
-    return `This action updates a #${id} carProduct`;
+  async update(id: string, updateCarProductDto: UpdateCarProductDto) {
+    const findId = await this.carRepository.findOne(id);
+
+    if (!findId) {
+      throw new NotFoundException('Car not found!');
+    }
+
+    return await this.carRepository.update(id, updateCarProductDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} carProduct`;
+  async remove(id: string) {
+    const findId = await this.carRepository.findOne(id);
+
+    if (!findId) {
+      throw new NotFoundException('Car not found!');
+    }
+
+    return await this.carRepository.delete(id);
   }
 }
