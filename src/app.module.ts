@@ -1,20 +1,11 @@
 /* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
-import { PrismaService } from './database/prisma.service';
-import { CarProductsController } from './modules/carProducts/car-products.controller';
-import { CarProductsService } from './modules/carProducts/car-products.service';
-import { CarProductRepository } from './modules/carProducts/repositories/carProducts.repository';
-import { CarProductPrismaRepository } from './modules/carProducts/repositories/prisma/cardProducts.prisma';
+import { CarProductsModule } from './modules/carProducts/car-products.module';
+import { ImgModule } from './modules/imgCar/img.module';
 
 @Module({
-  controllers: [CarProductsController],
-  providers: [
-    CarProductsService,
-    PrismaService,
-    {
-      provide: CarProductRepository,
-      useClass: CarProductPrismaRepository,
-    },
-  ],
+  imports: [CarProductsModule, ImgModule],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

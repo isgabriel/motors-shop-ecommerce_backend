@@ -22,7 +22,8 @@ model CarProducts {
   gasoline    Gasoline @default(FLEX)
   tablePife   Int
   business    Boolean  @default(false)
-  img         Img[]
+  img         Img?     @relation(fields: [imgId], references: [id], onDelete: Cascade)
+  imgId       String
 
   @@map("carProducts")
 }
@@ -34,10 +35,9 @@ enum Gasoline {
 }
 
 model Img {
-  id            String       @id
-  url_img           String
-  CarProducts   CarProducts? @relation(fields: [carProductsId], references: [id], onDelete: Cascade)
-  carProductsId String?
+  id            String        @id
+  url_img       String
+  carProductsId CarProducts[]
 
   @@map("img")
 }
