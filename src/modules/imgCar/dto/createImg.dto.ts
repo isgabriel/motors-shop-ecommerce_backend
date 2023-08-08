@@ -4,7 +4,8 @@ import { IsNotEmpty, IsString } from 'class-validator';
 export class CreateImgDto {
   @IsString()
   url_img: string;
+
   @IsString()
   @IsNotEmpty()
-  carProductsId: string;
+  carProduct: string;
 }
