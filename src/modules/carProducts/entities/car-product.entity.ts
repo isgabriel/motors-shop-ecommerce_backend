@@ -14,7 +14,6 @@ export class CarProduct {
   gasoline: Gasoline;
   tablePife: number;
   business: boolean;
-  imgId?: string;
 
   constructor() {
     this.id = randomUUID();

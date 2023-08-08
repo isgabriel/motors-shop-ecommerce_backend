@@ -1,11 +1,6 @@
 /* eslint-disable prettier/prettier */
-import {
-  IsString,
-  IsNumber,
-  IsBoolean,
-  IsOptional,
-  IsNotEmpty,
-} from 'class-validator';
+
+import { IsString, IsNumber, IsBoolean, IsNotEmpty } from 'class-validator';
 
 export class CreateCarProductsDto {
   @IsString()
@@ -44,10 +39,6 @@ export class CreateCarProductsDto {
   @IsBoolean()
   @IsNotEmpty()
   business: boolean;
-
-  @IsString()
-  @IsOptional()
-  imgId?: string[];
 }
 
 export enum Gasoline {

@@ -25,13 +25,30 @@ export class CarProductPrismaRepository implements CarProductRepository {
   }
 
   async findAll(): Promise<CarProduct[]> {
-    const cars = await this.prisma.carProducts.findMany();
+    const cars = await this.prisma.carProducts.findMany({
+      include: {
+        img: {
+          select: {
+            id: true,
+            url_img: true,
+          },
+        },
+      },
+    });
     return cars;
   }
 
   async findOne(id: string): Promise<CarProduct> {
     const car = await this.prisma.carProducts.findUnique({
       where: { id },
+      include: {
+        img: {
+          select: {
+            id: true,
+            url_img: true,
+          },
+        },
+      },
     });
 
     return car;

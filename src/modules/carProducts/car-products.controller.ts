@@ -13,7 +13,7 @@ import { CarProductsService } from './car-products.service';
 import { CreateCarProductsDto } from './dto/create-car-product.dto';
 import { UpdateCarProductDto } from './dto/update-car-product.dto';
 
-@Controller('car')
+@Controller('cars')
 export class CarProductsController {
   constructor(private readonly carProductsService: CarProductsService) {}
 
