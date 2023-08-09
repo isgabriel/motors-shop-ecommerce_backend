@@ -1,9 +1,10 @@
 /* eslint-disable prettier/prettier */
 import { Img } from './../../entities/img.entity';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ImgRepository } from '../img.repository';
 import { PrismaService } from 'src/database/prisma.service';
 import { CreateImgDto } from '../../dto/createImg.dto';
+import { UpdateImgDto } from '../../dto/updateImg.dto';
 
 @Injectable()
 export class ImgPrismaRepository implements ImgRepository {
@@ -21,7 +22,9 @@ export class ImgPrismaRepository implements ImgRepository {
       },
     });
 
-    console.log(data, findCar);
+    if (!findCar) {
+      throw new NotFoundException('Car not found!');
+    }
 
     const newImgs = await this.prisma.img.create({
       data: {
@@ -35,5 +38,27 @@ export class ImgPrismaRepository implements ImgRepository {
     });
 
     return newImgs;
+  }
+
+  async findOne(id: string): Promise<Img> {
+    const img = await this.prisma.img.findUnique({
+      where: { id },
+    });
+    return img;
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.prisma.img.delete({
+      where: { id },
+    });
+  }
+
+  async update(id: string, data: UpdateImgDto): Promise<Img> {
+    const img = await this.prisma.img.update({
+      where: { id },
+      data: { ...data },
+    });
+
+    return img;
   }
 }

@@ -36,8 +36,8 @@ enum Gasoline {
 model Img {
   id            String     @id @default(uuid())
   url_img       String    
-  carProduct    CarProducts?  @relation(fields: [CarProductsId], references: [id], onDelete: Cascade)
-  CarProductsId String?
+  carProduct    CarProducts?  @relation(fields: [carProductsId], references: [id], onDelete: Cascade)
+  carProductsId String?
 
   @@map("img")
 }

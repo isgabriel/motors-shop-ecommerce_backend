@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import { CarProductRepository } from '../carProducts.repository';
 import { PrismaService } from 'src/database/prisma.service';
 import { CarProduct } from '../../entities/car-product.entity';
-import { plainToInstance } from 'class-transformer';
 import { CreateCarProductsDto } from '../../dto/create-car-product.dto';
 import { UpdateCarProductDto } from '../../dto/update-car-product.dto';
 
@@ -21,7 +20,7 @@ export class CarProductPrismaRepository implements CarProductRepository {
       data: { ...cars },
     });
 
-    return plainToInstance(CarProduct, newCars);
+    return newCars;
   }
 
   async findAll(): Promise<CarProduct[]> {
@@ -35,6 +34,7 @@ export class CarProductPrismaRepository implements CarProductRepository {
         },
       },
     });
+
     return cars;
   }
 
