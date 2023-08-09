@@ -25,25 +25,35 @@ Para executar a aplicação localmente, siga estas etapas:
 Criação de anúncio: `POST /cars`
 ```
 {
-	"name": "Porche - 717",
-	"coverImg": "https://blogger",
-  "price": 0.00,
-  "year": 2020,
-  "km": 11.000,
-  "description": "aaaa",
-  "color": "branco",
-	"gasoline": "FLEX",
-  "tablePife": 1,
-  "business": false
+"name": "Porche - 717",
+"coverImg": "https://blogger",
+"price": 0.00,
+"year": 2020,
+"km": 11.000,
+"description": "aaaa",
+"color": "branco",
+"gasoline": "FLEX",
+"tablePife": 1,
+"business": false
 }
 ```
 Edição de anúncio: `PATCH /cars/:id` 
+
 Deleção de anúncio: `DELETE /cars/:id`
+
 Listagem de um anúncio: `GET /cars/:id`
+
 Listagem de todos os anúncios: `GET /cars`
 
 Criação de imagem relacionada a um anúncio: `POST /imgs`
+```
+{
+"url_img":"https://aaa.com",
+"carProduct":"39e647c3-d4df-4474-af8a-8c5d94aff9ec"
+}
+```
 Deleção de imagem: `DELETE /imgs/:id` -> id da img
+
 Edição de imagem: `PATCH /imgs/:id` -> id da img
 
 _______________________________________________
