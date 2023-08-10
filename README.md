@@ -1,6 +1,7 @@
 #BackEnd - Motors grupo17
 
 ## Instalação e Execução
+
 É necessário ter instalado em sua máquina o `Node` e o gerenciador de pacotes `yarn`.
 Para executar a aplicação localmente, siga estas etapas:
 
@@ -11,18 +12,19 @@ Para executar a aplicação localmente, siga estas etapas:
 5. Rode os comandos:
 
 ```
-    yarn 
+    yarn
     yarn add --save @nestjs/config
     yarn add prisma -D
     yarn add @prisma/client
     yarn add --save class-validator class-transformer
-    prisma migrate dev
+    yarn prisma migrate dev
     yarn run start:dev
 ```
 
 ## Rotas da API
 
 Criação de anúncio: `POST /cars`
+
 ```
 {
 "name": "Porche - 717",
@@ -37,7 +39,8 @@ Criação de anúncio: `POST /cars`
 "business": false
 }
 ```
-Edição de anúncio: `PATCH /cars/:id` 
+
+Edição de anúncio: `PATCH /cars/:id`
 
 Deleção de anúncio: `DELETE /cars/:id`
 
@@ -46,15 +49,18 @@ Listagem de um anúncio: `GET /cars/:id`
 Listagem de todos os anúncios: `GET /cars`
 
 Criação de imagem relacionada a um anúncio: `POST /imgs`
+
 ```
 {
 "url_img":"https://aaa.com",
 "carProduct":"39e647c3-d4df-4474-af8a-8c5d94aff9ec"
 }
 ```
+
 Deleção de imagem: `DELETE /imgs/:id` -> id da img
 
 Edição de imagem: `PATCH /imgs/:id` -> id da img
 
-_______________________________________________
+---
+
 Essa documentação está em construção, bem como a API.

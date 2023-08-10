@@ -19,6 +19,8 @@ model CarProducts {
   km          Int
   description String?
   color       String
+  model       String
+  brand       String
   gasoline    Gasoline @default(FLEX)
   tablePife   Int
   business    Boolean  @default(false)
