@@ -36,6 +36,14 @@ export class CreateCarProductsDto {
   @IsNotEmpty()
   tablePife: number;
 
+  @IsString()
+  @IsNotEmpty()
+  model: string;
+
+  @IsString()
+  @IsNotEmpty()
+  brand: string;
+
   @IsBoolean()
   @IsNotEmpty()
   business: boolean;

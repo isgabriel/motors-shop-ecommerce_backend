@@ -12,6 +12,8 @@ export class CarProduct {
   description?: string;
   color: string;
   gasoline: Gasoline;
+  model: string;
+  brand: string;
   tablePife: number;
   business: boolean;
 
