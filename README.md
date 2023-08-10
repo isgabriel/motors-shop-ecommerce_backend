@@ -13,7 +13,7 @@ Para executar a aplicação localmente, siga estas etapas:
 
 ```
     yarn
-    yarn add --save @nestjs/config
+    yarn add @nestjs/config --save
     yarn add prisma -D
     yarn add @prisma/client
     yarn add --save class-validator class-transformer
@@ -64,3 +64,5 @@ Edição de imagem: `PATCH /imgs/:id` -> id da img
 ---
 
 Essa documentação está em construção, bem como a API.
+
+Para acessar o repositório do Frontend, <a href="https://github.com/motors-shop-kenzie/motors-shop-FrontEnd" target="_blank">clique aqui</a>
