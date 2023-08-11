@@ -11,7 +11,9 @@ import {
 import { ImgService } from './img.service';
 import { CreateImgDto } from './dto/createImg.dto';
 import { UpdateImgDto } from './dto/updateImg.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Images')
 @Controller('imgs')
 export class ImgController {
   constructor(private readonly imgService: ImgService) {}
