@@ -8,11 +8,13 @@ import {
   Param,
   Delete,
   ParseUUIDPipe,
+  Query,
 } from '@nestjs/common';
 import { CarProductsService } from './car-products.service';
 import { CreateCarProductsDto } from './dto/create-car-product.dto';
 import { UpdateCarProductDto } from './dto/update-car-product.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Gasoline, Prisma } from '@prisma/client';
 
 @ApiTags('Cars')
 @Controller('cars')
@@ -22,6 +24,35 @@ export class CarProductsController {
   @Post()
   create(@Body() createCarProductDto: CreateCarProductsDto) {
     return this.carProductsService.create(createCarProductDto);
+  }
+
+  @Get('pagination')
+  findAllPagination(
+    @Query('orderBy') orderBy?: Prisma.CarProductsOrderByWithRelationInput,
+    @Query('page') page?: number,
+    @Query('brand') brand?: string,
+    @Query('model') model?: string,
+    @Query('color') color?: string,
+    @Query('year') year?: number,
+    @Query('gaosline') gasoline?: Gasoline,
+    @Query('maxPrice') maxPrice?: number,
+    @Query('minPrice') minPrice?: number,
+    @Query('maxKM') maxKM?: number,
+    @Query('minKM') minKM?: number,
+  ) {
+    return this.carProductsService.findAllPagination(
+      {
+        brand,
+        color,
+        gasoline,
+        model,
+        year,
+        price: { lte: maxPrice, gte: minPrice },
+        km: { lte: maxKM, gte: minKM },
+      },
+      orderBy,
+      page,
+    );
   }
 
   @Get()
