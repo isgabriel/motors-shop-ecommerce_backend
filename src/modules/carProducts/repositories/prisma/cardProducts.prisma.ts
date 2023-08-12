@@ -5,6 +5,14 @@ import { PrismaService } from 'src/database/prisma.service';
 import { CarProduct } from '../../entities/car-product.entity';
 import { CreateCarProductsDto } from '../../dto/create-car-product.dto';
 import { UpdateCarProductDto } from '../../dto/update-car-product.dto';
+import {
+  PaginateFunction,
+  PaginatedResult,
+} from '../../pagination/car-pagination.interface';
+import { paginator } from '../../pagination/car-pagination';
+import { Prisma } from '@prisma/client';
+
+const paginate: PaginateFunction = paginator({ perPage: 12 });
 
 @Injectable()
 export class CarProductPrismaRepository implements CarProductRepository {
@@ -21,6 +29,27 @@ export class CarProductPrismaRepository implements CarProductRepository {
     });
 
     return newCars;
+  }
+
+  async findAllPagination({
+    where,
+    orderBy,
+    page,
+  }: {
+    where?: Prisma.CarProductsWhereInput;
+    orderBy?: Prisma.CarProductsOrderByWithRelationInput;
+    page?: number;
+  }): Promise<PaginatedResult<CarProduct[]>> {
+    return paginate(
+      this.prisma.carProducts,
+      {
+        where,
+        orderBy,
+      },
+      {
+        page,
+      },
+    );
   }
 
   async findAll(): Promise<CarProduct[]> {

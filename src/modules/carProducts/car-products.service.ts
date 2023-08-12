@@ -4,6 +4,7 @@ import { CreateCarProductsDto } from './dto/create-car-product.dto';
 import { UpdateCarProductDto } from './dto/update-car-product.dto';
 import { CarProductRepository } from './repositories/carProducts.repository';
 import { NotFoundException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class CarProductsService {
@@ -11,6 +12,19 @@ export class CarProductsService {
 
   async create(createCarProductDto: CreateCarProductsDto) {
     return await this.carRepository.create(createCarProductDto);
+  }
+
+  async findAllPagination(
+    where?: Prisma.CarProductsWhereInput,
+    orderBy?: Prisma.CarProductsOrderByWithRelationInput,
+    page?: number,
+  ) {
+    const findAllCar = await this.carRepository.findAllPagination({
+      where,
+      orderBy,
+      page,
+    });
+    return findAllCar;
   }
 
   async findAll() {
