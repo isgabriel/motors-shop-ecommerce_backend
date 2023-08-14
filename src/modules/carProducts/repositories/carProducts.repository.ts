@@ -7,7 +7,7 @@ import { CarProduct } from '../entities/car-product.entity';
 import { PaginatedResult } from '../pagination/car-pagination.interface';
 
 export abstract class CarProductRepository {
-  abstract create(data: CreateCarProductsDto): Promise<CarProduct>;
+  abstract create(data: CreateCarProductsDto, userId: string): Promise<CarProduct>;
   abstract findAllPagination({
     where,
     orderBy,
@@ -22,6 +22,7 @@ export abstract class CarProductRepository {
   abstract update(
     id: string,
     data: UpdateCarProductDto,
+    userId: string
   ): Promise<CarProduct> | CarProduct;
-  abstract delete(id: string): Promise<void>;
+  abstract delete(id: string, userId: string): Promise<void>;
 }
