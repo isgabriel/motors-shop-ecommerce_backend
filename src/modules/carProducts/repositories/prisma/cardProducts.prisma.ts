@@ -18,10 +18,11 @@ const paginate: PaginateFunction = paginator({ perPage: 12 });
 export class CarProductPrismaRepository implements CarProductRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: CreateCarProductsDto): Promise<CarProduct> {
+  async create(data: CreateCarProductsDto, userId: string): Promise<CarProduct> {
     const cars = new CarProduct();
     Object.assign(cars, {
       ...data,
+      userId
     });
 
     const newCars = await this.prisma.carProducts.create({
@@ -84,18 +85,18 @@ export class CarProductPrismaRepository implements CarProductRepository {
     return car;
   }
 
-  async update(id: string, data: UpdateCarProductDto): Promise<CarProduct> {
+  async update(id: string, data: UpdateCarProductDto, userId: string): Promise<CarProduct> {
     const car = await this.prisma.carProducts.update({
-      where: { id },
+      where: { id:id, userId:userId },
       data: { ...data },
     });
 
     return car;
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: string, userId: string): Promise<void> {
     await this.prisma.carProducts.delete({
-      where: { id },
+      where: { id:id, userId:userId },
     });
   }
 }
