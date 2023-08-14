@@ -7,6 +7,7 @@ import { UpdateUserDto } from '../../dto/update-user.dto';
 import { User } from '../../entities/user.entity';
 import { plainToInstance } from 'class-transformer';
 import { Injectable } from '@nestjs/common';
+import { Address } from 'src/modules/address/entities/address.entity';
 
 @Injectable()
 export class UsersPrismaRepository implements UsersRepository {
@@ -16,12 +17,15 @@ export class UsersPrismaRepository implements UsersRepository {
     Object.assign(user, {
       ...data,
     });
-    
-    console.log("chegou",user)
+
+    const address = new Address();
+    Object.assign(address, {
+      ...data.address,
+    });
     const newUser = await this.prisma.user.create({
       data: { ...user },
     });
-    return plainToInstance(User, newUser) ;
+    return plainToInstance(User, newUser);
   }
   async findAll(): Promise<User[]> {
     const users = await this.prisma.user.findMany();

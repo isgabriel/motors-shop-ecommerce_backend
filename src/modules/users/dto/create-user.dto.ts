@@ -85,4 +85,5 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   birthdate: string;
+  address: any;
 }
