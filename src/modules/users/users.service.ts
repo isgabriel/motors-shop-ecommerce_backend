@@ -16,11 +16,16 @@ export class UsersService {
     const user = await this.userRepository.create(createUserDto);
     
     return user;
-    return await this.userRepository.create(createUserDto)
   }
 
   async findAll() {
     return await this.userRepository.findAll();
+  }
+
+  async findByEmail(email: string) {
+    const findUser = await this.userRepository.findByEmail(email);
+    
+    return findUser;
   }
 
   async findOne(id: number) {
