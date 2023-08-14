@@ -2,7 +2,7 @@
 
 import { Body, Controller, Param, Patch, Request } from '@nestjs/common';
 import { AddressService } from './address.service';
-import { updateAddressDto } from './dto/updateAddress.dto';
+import { UpdateAddressDto } from './dto/updateAddress.dto';
 
 @Controller('addresses')
 export class AddressController {
@@ -11,7 +11,7 @@ export class AddressController {
   update(
     @Request() req,
     @Param('id') id: string,
-    @Body() data: updateAddressDto,
+    @Body() data: UpdateAddressDto,
   ) {
     return this.addressesService.update(id, data, req.user.id);
   }

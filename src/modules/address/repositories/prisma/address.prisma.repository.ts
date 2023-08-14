@@ -2,13 +2,14 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { AddressRepository } from '../address.repository';
 import { PrismaService } from 'src/database/prisma.service';
-import { updateAddressDto } from '../../dto/updateAddress.dto';
+import { UpdateAddressDto } from '../../dto/updateAddress.dto';
 import { Address } from '../../entities/address.entity';
 
 @Injectable()
 export class AddressPrismaRepository implements AddressRepository {
   constructor(private prisma: PrismaService) {}
   async findOne(id: string, userId: string): Promise<Address> {
+    console.log(this.prisma);
     const address = await this.prisma.address.findUnique({
       where: {
         id,
@@ -22,9 +23,9 @@ export class AddressPrismaRepository implements AddressRepository {
   }
   async update(
     id: string,
-    updateAddressDto: updateAddressDto,
+    updateAddressDto: UpdateAddressDto,
   ): Promise<Address> {
-    const address = await this.prisma.address.findUnique({
+    const address = await this.prisma.address.update({
       where: {
         id,
       },
