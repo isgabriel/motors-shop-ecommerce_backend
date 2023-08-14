@@ -25,7 +25,8 @@ export class CarProductPrismaRepository implements CarProductRepository {
     });
 
     const newCars = await this.prisma.carProducts.create({
-      data: { ...cars },
+      data: { ...cars,
+      userId: cars.userId },
     });
 
     return newCars;
