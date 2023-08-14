@@ -25,6 +25,8 @@ model CarProducts {
   tablePife   Int
   business    Boolean  @default(false)
   img         Img[]    
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
 
   @@map("carProducts")
 }
@@ -42,4 +44,21 @@ model Img {
   carProductsId String?
 
   @@map("img")
+}
+
+model User {
+	id String @id 
+  name String
+  email String @unique
+  password String
+  cpf String @unique
+  isAdmin Boolean @default(false)
+  telephone String
+  description String?
+  birthdate String
+  createdAt String
+  carProducts CarProducts[]
+  // address Address?
+ 
+  @@map("users")
 }

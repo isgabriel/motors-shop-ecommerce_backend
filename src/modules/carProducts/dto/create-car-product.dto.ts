@@ -113,4 +113,8 @@ export class CreateCarProductsDto {
   @IsBoolean()
   @IsNotEmpty()
   business: boolean;
+  
+  @IsString()
+  @IsNotEmpty()
+  userId: string;
 }

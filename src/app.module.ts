@@ -7,7 +7,5 @@ import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [CarProductsModule, ImgModule, UsersModule, AuthModule],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}
