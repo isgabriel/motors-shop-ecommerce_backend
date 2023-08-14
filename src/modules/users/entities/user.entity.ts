@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
 
-import { Exclude } from "class-transformer";
-import { randomUUID } from "crypto";
+import { Exclude } from 'class-transformer';
+import { randomUUID } from 'crypto';
+import { Address } from '../../address/entities/address.entity';
 
 export class User {
   readonly id: string;
@@ -15,11 +16,10 @@ export class User {
   telephone: string;
   description: string | null;
   birthdate: string;
-  
+  address?: Address;
 
   constructor() {
-    this.id = randomUUID()
-    this.createdAt = new Date().toISOString()
+    this.id = randomUUID();
+    this.createdAt = new Date().toISOString();
   }
-  
 }

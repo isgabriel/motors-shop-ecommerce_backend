@@ -24,7 +24,7 @@ model CarProducts {
   gasoline    Gasoline @default(FLEX)
   tablePife   Int
   business    Boolean  @default(false)
-  img         Img[]    
+  img         Img[]
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
 
@@ -38,27 +38,41 @@ enum Gasoline {
 }
 
 model Img {
-  id            String     @id @default(uuid())
-  url_img       String    
-  carProduct    CarProducts?  @relation(fields: [carProductsId], references: [id], onDelete: Cascade)
+  id            String       @id @default(uuid())
+  url_img       String
+  carProduct    CarProducts? @relation(fields: [carProductsId], references: [id], onDelete: Cascade)
   carProductsId String?
 
   @@map("img")
 }
 
 model User {
-	id String @id 
-  name String
-  email String @unique
-  password String
-  cpf String @unique
-  isAdmin Boolean @default(false)
-  telephone String
+  id          String        @id
+  name        String
+  email       String        @unique
+  password    String
+  cpf         String        @unique
+  isAdmin     Boolean       @default(false)
+  telephone   String
   description String?
-  birthdate String
-  createdAt String
+  birthdate   String
+  createdAt   String
   carProducts CarProducts[]
-  // address Address?
- 
+  address     Address?
+
   @@map("users")
+}
+
+model Address {
+  id         String @id
+  zip_code   String
+  state      String
+  city       String
+  street     String
+  number     Int
+  complement String
+  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String @unique
+
+  @@map("address")
 }
