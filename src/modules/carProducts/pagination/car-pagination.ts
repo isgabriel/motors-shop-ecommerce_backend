@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { PaginateFunction, PaginateOptions } from './car-pagination.interface';
 
 export const paginator = (

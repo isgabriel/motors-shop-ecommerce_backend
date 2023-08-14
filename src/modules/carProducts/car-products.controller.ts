@@ -34,7 +34,7 @@ export class CarProductsController {
     @Query('model') model?: string,
     @Query('color') color?: string,
     @Query('year') year?: number,
-    @Query('gaosline') gasoline?: Gasoline,
+    @Query('gasoline') gasoline?: Gasoline,
     @Query('maxPrice') maxPrice?: number,
     @Query('minPrice') minPrice?: number,
     @Query('maxKM') maxKM?: number,
