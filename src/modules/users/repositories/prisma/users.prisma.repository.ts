@@ -23,7 +23,7 @@ export class UsersPrismaRepository implements UsersRepository {
       ...data.address,
     });
     const newUser = await this.prisma.user.create({
-      data: { ...user },
+      data: { ...user, address: { create: { ...address } } },
     });
     return plainToInstance(User, newUser);
   }

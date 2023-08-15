@@ -12,9 +12,9 @@ export class UsersService {
     if (findUser) {
       throw new ConflictException('Email already exists');
     }
-    
+
     const user = await this.userRepository.create(createUserDto);
-    
+
     return user;
   }
 
@@ -24,7 +24,7 @@ export class UsersService {
 
   async findByEmail(email: string) {
     const findUser = await this.userRepository.findByEmail(email);
-    
+
     return findUser;
   }
 

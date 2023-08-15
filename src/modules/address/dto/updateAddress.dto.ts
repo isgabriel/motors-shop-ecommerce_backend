@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { PartialType } from '@nestjs/swagger';
+
+import { PartialType } from '@nestjs/mapped-types';
 import { createAddressDto } from './createAddress.dto';
 
-export class updateAddressDto extends PartialType(createAddressDto) {}
+export class UpdateAddressDto extends PartialType(createAddressDto) {}

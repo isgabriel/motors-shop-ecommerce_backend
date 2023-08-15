@@ -2,7 +2,7 @@
 
 import { Exclude } from 'class-transformer';
 import { randomUUID } from 'crypto';
-import { Address } from '../../address/entities/address.entity';
+import { Address } from '@prisma/client';
 
 export class User {
   readonly id: string;
