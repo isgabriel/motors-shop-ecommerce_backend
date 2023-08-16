@@ -51,6 +51,13 @@ export class UsersPrismaRepository implements UsersRepository {
 
     return user;
   }
+  async findByCpf(cpf: string): Promise<User> {
+    const user = await this.prisma.user.findUnique({
+      where: { cpf },
+    });
+
+    return user;
+  }
   async findOne(id: string): Promise<User> {
     const user = await this.prisma.user.findUnique({
       where: { id: id },

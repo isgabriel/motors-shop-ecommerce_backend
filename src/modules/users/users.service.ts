@@ -13,6 +13,11 @@ export class UsersService {
       throw new ConflictException('Email already exists');
     }
 
+    const findUser2 = await this.userRepository.findByCpf(createUserDto.cpf);
+    if (findUser2) {
+      throw new ConflictException('Cpf already exists');
+    }
+
     const user = await this.userRepository.create(createUserDto);
 
     return user;
@@ -24,6 +29,12 @@ export class UsersService {
 
   async findByEmail(email: string) {
     const findUser = await this.userRepository.findByEmail(email);
+
+    return findUser;
+  }
+
+  async findByCpf(cpf: string) {
+    const findUser = await this.userRepository.findByEmail(cpf);
 
     return findUser;
   }
