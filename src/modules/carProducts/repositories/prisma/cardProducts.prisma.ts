@@ -63,6 +63,11 @@ export class CarProductPrismaRepository implements CarProductRepository {
             url_img: true,
           },
         },
+        user: {
+          select: {
+            name: true
+          }
+        }
       },
     });
 

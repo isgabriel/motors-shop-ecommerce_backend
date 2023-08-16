@@ -27,6 +27,7 @@ model CarProducts {
   img         Img[]
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
+  active      Boolean  @default(true)
 
   @@map("carProducts")
 }
