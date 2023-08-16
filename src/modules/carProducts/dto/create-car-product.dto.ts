@@ -107,11 +107,18 @@ export class CreateCarProductsDto {
 
   @ApiProperty({
     type: Boolean,
-    description: 'Disponibilidade para negócios',
+    description: 'É um bom negócios',
     example: true,
   })
   @IsBoolean()
   @IsNotEmpty()
   business: boolean;
-  
+
+  @ApiProperty({
+    type: Boolean,
+    description: 'Disponibilidade para negócios',
+    example: true,
+  })
+  @IsBoolean()
+  active: boolean;
 }
