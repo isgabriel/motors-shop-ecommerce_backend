@@ -15,7 +15,7 @@ export class UsersPrismaRepository implements UsersRepository {
   async create(data: CreateUserDto): Promise<User> {
     const user = new User();
     Object.assign(user, {
-      ...data,
+      ...data, 
     });
 
     const address = new Address();
@@ -28,8 +28,21 @@ export class UsersPrismaRepository implements UsersRepository {
     return plainToInstance(User, newUser);
   }
   async findAll(): Promise<User[]> {
-    const users = await this.prisma.user.findMany();
-    return users;
+    const users = await this.prisma.user.findMany({
+      include:{
+        address:{select:{
+          id: true,
+          zip_code:true,
+          state: true,
+          city: true,
+          street: true,
+          number: true, 
+          complement: true,
+          userId: true
+        }}
+      }
+    });
+    return  plainToInstance(User, users);
   }
   async findByEmail(email: string): Promise<User> {
     const user = await this.prisma.user.findUnique({
