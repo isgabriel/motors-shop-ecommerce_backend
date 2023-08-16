@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 
+import { Address } from '@prisma/client';
 import { Exclude } from 'class-transformer';
 import { randomUUID } from 'crypto';
-import { Address } from '@prisma/client';
 
 export class User {
   readonly id: string;
