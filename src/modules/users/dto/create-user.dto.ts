@@ -6,9 +6,11 @@ import {
   IsBoolean,
   IsEmail,
   IsNotEmpty,
+  IsNumberString,
   IsObject,
   IsString,
   MaxLength,
+  MinLength
 } from 'class-validator';
 import { createAddressDto } from 'src/modules/address/dto/createAddress.dto';
 
@@ -50,7 +52,9 @@ export class CreateUserDto {
     example: '12345678912',
   })
   @IsString()
+  @IsNumberString()
   @MaxLength(11)
+  @MinLength(11)
   @IsNotEmpty()
   cpf: string;
 
