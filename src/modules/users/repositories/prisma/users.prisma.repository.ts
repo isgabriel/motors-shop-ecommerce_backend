@@ -29,21 +29,7 @@ export class UsersPrismaRepository implements UsersRepository {
     return plainToInstance(User, newUser);
   }
   async findAll(): Promise<User[]> {
-    const users = await this.prisma.user.findMany();
-    console.log(users, 'users here');
-    return users;
-  }
-  async findByEmail(email: string): Promise<User> {
-    const user = await this.prisma.user.findUnique({
-      where: { email },
-    });
-    console.log(user, 'user here');
-
-    return user;
-  }
-  async findOne(id: string): Promise<User> {
-    const user = await this.prisma.user.findUnique({
-      where: { id },
+    const users = await this.prisma.user.findMany({
       include: {
         address: {
           select: {
@@ -59,8 +45,36 @@ export class UsersPrismaRepository implements UsersRepository {
         },
       },
     });
+    return plainToInstance(User, users);
+  }
+  async findByEmail(email: string): Promise<User> {
+    const user = await this.prisma.user.findUnique({
+      where: { email },
+    });
+    console.log(user, 'user here');
+
     return user;
-    // throw new Error('Method not implemented.');
+  }
+  async findOne(id: string): Promise<User> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: id },
+      include: {
+        address: {
+          select: {
+            id: true,
+            zip_code: true,
+            state: true,
+            city: true,
+            street: true,
+            number: true,
+            complement: true,
+            userId: true,
+          },
+        },
+      },
+    });
+
+    return plainToInstance(User, user);
   }
   async update(id: string, data: UpdateUserDto): Promise<User> {
     throw new Error('Method not implemented.');

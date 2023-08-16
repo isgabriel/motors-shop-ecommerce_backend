@@ -6,9 +6,11 @@ import {
   IsBoolean,
   IsEmail,
   IsNotEmpty,
+  IsObject,
   IsString,
   MaxLength,
 } from 'class-validator';
+import { createAddressDto } from 'src/modules/address/dto/createAddress.dto';
 
 export class CreateUserDto {
   @ApiProperty({
@@ -85,5 +87,7 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   birthdate: string;
-  address: any;
+
+  @IsObject()
+  address: createAddressDto;
 }
