@@ -31,6 +31,10 @@ export class CarProductsService {
     return await this.carRepository.findAll();
   }
 
+  async findLogged(id:string) {
+    return await this.carRepository.findLogged(id);
+  }
+
   async findOne(id: string) {
     const findId = await this.carRepository.findOne(id);
 
