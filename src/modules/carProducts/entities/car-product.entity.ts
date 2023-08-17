@@ -16,6 +16,8 @@ export class CarProduct {
   brand: string;
   tablePife: number;
   business: boolean;
+  userId: string;
+  active: boolean;
 
   constructor() {
     this.id = randomUUID();

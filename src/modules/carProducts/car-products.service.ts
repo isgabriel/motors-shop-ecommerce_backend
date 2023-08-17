@@ -10,8 +10,8 @@ import { Prisma } from '@prisma/client';
 export class CarProductsService {
   constructor(private carRepository: CarProductRepository) {}
 
-  async create(createCarProductDto: CreateCarProductsDto) {
-    return await this.carRepository.create(createCarProductDto);
+  async create(createCarProductDto: CreateCarProductsDto, userId: string) {
+    return await this.carRepository.create(createCarProductDto, userId);
   }
 
   async findAllPagination(
@@ -31,6 +31,10 @@ export class CarProductsService {
     return await this.carRepository.findAll();
   }
 
+  async findLogged(id:string) {
+    return await this.carRepository.findLogged(id);
+  }
+
   async findOne(id: string) {
     const findId = await this.carRepository.findOne(id);
 
@@ -41,23 +45,23 @@ export class CarProductsService {
     return findId;
   }
 
-  async update(id: string, updateCarProductDto: UpdateCarProductDto) {
+  async update(id: string, updateCarProductDto: UpdateCarProductDto, userId: string) {
     const findId = await this.carRepository.findOne(id);
 
     if (!findId) {
       throw new NotFoundException('Car not found!');
     }
 
-    return await this.carRepository.update(id, updateCarProductDto);
+    return await this.carRepository.update(id, updateCarProductDto, userId);
   }
 
-  async remove(id: string) {
+  async remove(id: string, userId: string) {
     const findId = await this.carRepository.findOne(id);
 
     if (!findId) {
       throw new NotFoundException('Car not found!');
     }
 
-    return await this.carRepository.delete(id);
+    return await this.carRepository.delete(id, userId);
   }
 }

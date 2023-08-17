@@ -13,10 +13,9 @@ Para executar a aplicação localmente, siga estas etapas:
 
 ```
     yarn
-    yarn add @nestjs/config --save
+    yarn add --save @nestjs/config swagger class-validator class-transformer
     yarn add prisma -D
     yarn add @prisma/client
-    yarn add --save class-validator class-transformer
     yarn prisma migrate dev
     yarn run start:dev
 ```

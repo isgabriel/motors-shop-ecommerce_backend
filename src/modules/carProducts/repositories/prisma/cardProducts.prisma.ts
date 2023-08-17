@@ -18,14 +18,16 @@ const paginate: PaginateFunction = paginator({ perPage: 12 });
 export class CarProductPrismaRepository implements CarProductRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: CreateCarProductsDto): Promise<CarProduct> {
+  async create(data: CreateCarProductsDto, userId: string): Promise<CarProduct> {
     const cars = new CarProduct();
     Object.assign(cars, {
       ...data,
+      userId
     });
 
     const newCars = await this.prisma.carProducts.create({
-      data: { ...cars },
+      data: { ...cars,
+      userId: cars.userId },
     });
 
     return newCars;
@@ -61,6 +63,32 @@ export class CarProductPrismaRepository implements CarProductRepository {
             url_img: true,
           },
         },
+        user: {
+          select: {
+            name: true
+          }
+        }
+      },
+    });
+
+    return cars;
+  }
+
+  async findLogged(id:string): Promise<CarProduct[]> {
+    const cars = await this.prisma.carProducts.findMany({
+      where: {userId:id},
+      include: {
+        img: {
+          select: {
+            id: true,
+            url_img: true,
+          },
+        },
+        user: {
+          select: {
+            name: true
+          }
+        }
       },
     });
 
@@ -83,18 +111,18 @@ export class CarProductPrismaRepository implements CarProductRepository {
     return car;
   }
 
-  async update(id: string, data: UpdateCarProductDto): Promise<CarProduct> {
+  async update(id: string, data: UpdateCarProductDto, userId: string): Promise<CarProduct> {
     const car = await this.prisma.carProducts.update({
-      where: { id },
+      where: { id:id, userId:userId },
       data: { ...data },
     });
 
     return car;
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: string, userId: string): Promise<void> {
     await this.prisma.carProducts.delete({
-      where: { id },
+      where: { id:id, userId:userId },
     });
   }
 }

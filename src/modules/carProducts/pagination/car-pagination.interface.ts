@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 export interface PaginatedResult<P> {
   total: number;
   lastPage: number;
