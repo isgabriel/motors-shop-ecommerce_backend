@@ -74,6 +74,27 @@ export class CarProductPrismaRepository implements CarProductRepository {
     return cars;
   }
 
+  async findLogged(id:string): Promise<CarProduct[]> {
+    const cars = await this.prisma.carProducts.findMany({
+      where: {userId:id},
+      include: {
+        img: {
+          select: {
+            id: true,
+            url_img: true,
+          },
+        },
+        user: {
+          select: {
+            name: true
+          }
+        }
+      },
+    });
+
+    return cars;
+  }
+
   async findOne(id: string): Promise<CarProduct> {
     const car = await this.prisma.carProducts.findUnique({
       where: { id },

@@ -27,6 +27,12 @@ export class UsersService {
     return await this.userRepository.findAll();
   }
 
+  async findLogged(id: string) {
+    const findUser = await this.userRepository.findLogged(id);
+
+    return findUser;
+  }
+
   async findByEmail(email: string) {
     const findUser = await this.userRepository.findByEmail(email);
 
