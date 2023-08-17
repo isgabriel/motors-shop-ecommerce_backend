@@ -44,6 +44,25 @@ export class UsersPrismaRepository implements UsersRepository {
     });
     return  plainToInstance(User, users);
   }
+  async findLogged(id: string): Promise<User> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: id },
+      include:{
+        address:{select:{
+          id: true,
+          zip_code:true,
+          state: true,
+          city: true,
+          street: true,
+          number: true, 
+          complement: true,
+          userId: true
+        }}
+      }
+    });
+
+    return plainToInstance(User, user);
+  }
   async findByEmail(email: string): Promise<User> {
     const user = await this.prisma.user.findUnique({
       where: { email },
