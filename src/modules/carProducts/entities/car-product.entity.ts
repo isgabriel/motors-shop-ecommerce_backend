@@ -4,7 +4,6 @@ import { randomUUID } from 'crypto';
 
 export class CarProduct {
   readonly id: string;
-  name: string;
   coverImg: string;
   price: number;
   year: number;

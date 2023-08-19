@@ -11,15 +11,6 @@ enum Gasoline {
 export class CreateCarProductsDto {
   @ApiProperty({
     type: String,
-    description: 'Nome do produto',
-    example: 'Porche - 717',
-  })
-  @IsString()
-  @IsNotEmpty()
-  name: string;
-
-  @ApiProperty({
-    type: String,
     description: 'URL da imagem de capa',
     example: 'https://example.com/car.jpg',
   })

@@ -8,6 +8,7 @@ import {
   IsNotEmpty,
   IsNumberString,
   IsObject,
+  IsOptional,
   IsString,
   MaxLength,
   MinLength
@@ -92,6 +93,19 @@ export class CreateUserDto {
   @IsNotEmpty()
   birthdate: string;
 
+  @ApiProperty({
+    type: Boolean,
+    description: 'Desativar conta',
+    example: false,
+  })
+  @IsBoolean()
+  @IsOptional()
+  active: boolean;
+
+  @ApiProperty({
+    type: createAddressDto,
+    description: 'Endereço do usuário',
+  })
   @IsObject()
   address: createAddressDto;
 }
