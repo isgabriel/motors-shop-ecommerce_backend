@@ -56,11 +56,11 @@ model User {
   telephone   String
   description String?
   birthdate   String
+  reset_token String?
   createdAt   String
-  active      Boolean       @default(true) 
+  active      Boolean       @default(true)
   carProducts CarProducts[]
   address     Address?
-  
 
   @@map("users")
 }
