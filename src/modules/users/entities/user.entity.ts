@@ -15,6 +15,7 @@ export class User {
   isAdmin: boolean;
   telephone: string;
   description: string | null;
+  active: boolean;
   birthdate: string;
   address?: Address;
 
