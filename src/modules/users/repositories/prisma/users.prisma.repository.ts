@@ -1,14 +1,14 @@
 /* eslint-disable prettier/prettier */
 
+import { Injectable } from '@nestjs/common';
+import { hashSync } from 'bcryptjs';
+import { plainToInstance } from 'class-transformer';
 import { PrismaService } from 'src/database/prisma.service';
-import { UsersRepository } from '../users.repository';
+import { Address } from 'src/modules/address/entities/address.entity';
 import { CreateUserDto } from '../../dto/create-user.dto';
 import { UpdateUserDto } from '../../dto/update-user.dto';
 import { User } from '../../entities/user.entity';
-import { plainToInstance } from 'class-transformer';
-import { Injectable } from '@nestjs/common';
-import { Address } from 'src/modules/address/entities/address.entity';
-import { hashSync } from 'bcryptjs';
+import { UsersRepository } from '../users.repository';
 
 @Injectable()
 export class UsersPrismaRepository implements UsersRepository {
@@ -16,19 +16,18 @@ export class UsersPrismaRepository implements UsersRepository {
 
   async create(data: CreateUserDto): Promise<User> {
     const user = new User();
-    Object.assign(user, {
-      ...data,
-    });
+    Object.assign(user, data);
 
     const address = new Address();
-    Object.assign(address, {
-      ...data.address,
-    });
+    Object.assign(address, data.address);
+
     const newUser = await this.prisma.user.create({
       data: { ...user, address: { create: { ...address } } },
     });
+
     return plainToInstance(User, newUser);
   }
+
   async findAll(): Promise<User[]> {
     const users = await this.prisma.user.findMany({
       include: {
@@ -48,6 +47,7 @@ export class UsersPrismaRepository implements UsersRepository {
     });
     return plainToInstance(User, users);
   }
+
   async findLogged(id: string): Promise<User> {
     const user = await this.prisma.user.findUnique({
       where: { id: id },
@@ -69,21 +69,19 @@ export class UsersPrismaRepository implements UsersRepository {
 
     return plainToInstance(User, user);
   }
+
   async findByEmail(email: string): Promise<User> {
-    const user = await this.prisma.user.findUnique({
-      where: { email },
-    });
-    console.log(user, 'user here');
+    const user = await this.prisma.user.findUnique({ where: { email } });
 
     return user;
   }
+
   async findByCpf(cpf: string): Promise<User> {
-    const user = await this.prisma.user.findUnique({
-      where: { cpf },
-    });
+    const user = await this.prisma.user.findUnique({ where: { cpf } });
 
     return user;
   }
+
   async findOne(id: string): Promise<User> {
     const user = await this.prisma.user.findUnique({
       where: { id: id },
@@ -114,11 +112,15 @@ export class UsersPrismaRepository implements UsersRepository {
     return user;
   }
 
-  async update(id: string, data: UpdateUserDto): Promise<User> {
-    throw new Error('Method not implemented.');
+  async update(id: string, reqData: UpdateUserDto): Promise<User> {
+    const { address: _, ...data } = reqData;
+    const user = await this.prisma.user.update({ where: { id }, data });
+
+    return plainToInstance(User, user);
   }
+
   async delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+    await this.prisma.user.delete({ where: { id } });
   }
 
   async updateToken(email: string, token: string): Promise<void> {
@@ -127,6 +129,7 @@ export class UsersPrismaRepository implements UsersRepository {
       data: { reset_token: token },
     });
   }
+
   async updatePassword(id: string, password: string): Promise<void> {
     await this.prisma.user.update({
       where: { id },
