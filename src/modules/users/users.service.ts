@@ -4,11 +4,11 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { randomUUID } from 'node:crypto';
+import { MailService } from '../utils/mail.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersRepository } from './repositories/users.repository';
-import { MailService } from '../utils/mail.service';
-import { randomUUID } from 'node:crypto';
 
 @Injectable()
 export class UsersService {
@@ -57,18 +57,22 @@ export class UsersService {
 
   async findOne(id: string) {
     const findUser = await this.userRepository.findOne(id);
-    if (!findUser) {
-      throw new NotFoundException('User not found');
-    }
+    if (!findUser) throw new NotFoundException('User not found');
+
     return findUser;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+    const findUser = await this.userRepository.findOne(id);
+    if (!findUser) throw new NotFoundException('User not found');
+
+    return this.userRepository.update(id, updateUserDto);
   }
 
   async remove(id: string) {
-    return `This action removes a #${id} user`;
+    const findUser = await this.userRepository.findOne(id);
+    if (!findUser) throw new NotFoundException('User not found');
+    return this.userRepository.delete(id);
   }
 
   async sendEmailResetPassword(email: string) {
