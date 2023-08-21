@@ -6,9 +6,12 @@ import {
   IsBoolean,
   IsEmail,
   IsNotEmpty,
+  IsNumberString,
   IsObject,
+  IsOptional,
   IsString,
   MaxLength,
+  MinLength
 } from 'class-validator';
 import { createAddressDto } from 'src/modules/address/dto/createAddress.dto';
 
@@ -50,7 +53,9 @@ export class CreateUserDto {
     example: '12345678912',
   })
   @IsString()
+  @IsNumberString()
   @MaxLength(11)
+  @MinLength(11)
   @IsNotEmpty()
   cpf: string;
 
@@ -88,6 +93,19 @@ export class CreateUserDto {
   @IsNotEmpty()
   birthdate: string;
 
+  @ApiProperty({
+    type: Boolean,
+    description: 'Desativar conta',
+    example: false,
+  })
+  @IsBoolean()
+  @IsOptional()
+  active: boolean;
+
+  @ApiProperty({
+    type: createAddressDto,
+    description: 'Endereço do usuário',
+  })
   @IsObject()
   address: createAddressDto;
 }

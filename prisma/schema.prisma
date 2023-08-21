@@ -12,7 +12,6 @@ datasource db {
 
 model CarProducts {
   id          String   @id
-  name        String
   coverImg    String
   price       Int
   year        Int
@@ -27,6 +26,7 @@ model CarProducts {
   img         Img[]
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
+  active      Boolean  @default(true)
 
   @@map("carProducts")
 }
@@ -56,7 +56,9 @@ model User {
   telephone   String
   description String?
   birthdate   String
+  reset_token String?
   createdAt   String
+  active      Boolean       @default(true)
   carProducts CarProducts[]
   address     Address?
 

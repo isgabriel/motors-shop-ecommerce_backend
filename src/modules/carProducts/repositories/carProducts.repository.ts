@@ -18,6 +18,7 @@ export abstract class CarProductRepository {
     page?: number;
   }): Promise<PaginatedResult<CarProduct[]>>;
   abstract findAll(): Promise<CarProduct[]>;
+  abstract findLogged(id: string): Promise<CarProduct[]>;
   abstract findOne(id: string): Promise<CarProduct>;
   abstract update(
     id: string,

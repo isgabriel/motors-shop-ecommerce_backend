@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNumber, IsBoolean, IsNotEmpty } from 'class-validator';
+import { IsString, IsNumber, IsBoolean, IsNotEmpty, IsOptional } from 'class-validator';
 
 enum Gasoline {
   flex = 'FLEX',
@@ -9,15 +9,6 @@ enum Gasoline {
 }
 
 export class CreateCarProductsDto {
-  @ApiProperty({
-    type: String,
-    description: 'Nome do produto',
-    example: 'Porche - 717',
-  })
-  @IsString()
-  @IsNotEmpty()
-  name: string;
-
   @ApiProperty({
     type: String,
     description: 'URL da imagem de capa',
@@ -107,11 +98,19 @@ export class CreateCarProductsDto {
 
   @ApiProperty({
     type: Boolean,
-    description: 'Disponibilidade para negócios',
+    description: 'É um bom negócios',
     example: true,
   })
   @IsBoolean()
   @IsNotEmpty()
   business: boolean;
-  
+
+  @ApiProperty({
+    type: Boolean,
+    description: 'Disponibilidade para negócios',
+    example: true,
+  })
+  @IsBoolean()
+  @IsOptional()
+  active: boolean;
 }

@@ -4,7 +4,6 @@ import { randomUUID } from 'crypto';
 
 export class CarProduct {
   readonly id: string;
-  name: string;
   coverImg: string;
   price: number;
   year: number;
@@ -17,6 +16,7 @@ export class CarProduct {
   tablePife: number;
   business: boolean;
   userId: string;
+  active: boolean;
 
   constructor() {
     this.id = randomUUID();

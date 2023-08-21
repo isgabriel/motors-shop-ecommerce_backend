@@ -64,6 +64,12 @@ export class CarProductsController {
     return this.carProductsService.findAll();
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get('logged')
+  findLogged(@Request() req) {
+    return this.carProductsService.findLogged(req.user.id);
+  }
+
   @Get(':id')
   findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.carProductsService.findOne(id);
