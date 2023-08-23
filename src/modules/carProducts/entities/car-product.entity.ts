@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Gasoline } from '@prisma/client';
+import { Gasoline, Img } from '@prisma/client';
 import { randomUUID } from 'crypto';
 
 export class CarProduct {
@@ -17,6 +17,7 @@ export class CarProduct {
   business: boolean;
   userId: string;
   active: boolean;
+  img?: Img[];
 
   constructor() {
     this.id = randomUUID();

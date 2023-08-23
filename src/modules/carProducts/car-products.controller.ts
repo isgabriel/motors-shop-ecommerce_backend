@@ -1,16 +1,5 @@
 /* eslint-disable prettier/prettier */
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  ParseUUIDPipe,
-  Query,
-  Request
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe, Query, Request } from '@nestjs/common';
 import { CarProductsService } from './car-products.service';
 import { CreateCarProductsDto } from './dto/create-car-product.dto';
 import { UpdateCarProductDto } from './dto/update-car-product.dto';
@@ -77,11 +66,7 @@ export class CarProductsController {
 
   @Patch(':id')
   @UseGuards(JwtAuthGuard)
-  update(
-    @Param('id', ParseUUIDPipe) id: string,
-    @Body() updateCarProductDto: UpdateCarProductDto,
-    @Request() req
-  ) {
+  update(@Param('id', ParseUUIDPipe) id: string, @Body() updateCarProductDto: UpdateCarProductDto, @Request() req) {
     return this.carProductsService.update(id, updateCarProductDto, req.user.id);
   }
 
