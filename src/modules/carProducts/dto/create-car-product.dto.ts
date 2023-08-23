@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNumber, IsBoolean, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsString, IsNumber, IsBoolean, IsNotEmpty, IsOptional, IsArray } from 'class-validator';
+import { CreateImgDto } from 'src/modules/imgCar/dto/createImg.dto';
 
 enum Gasoline {
   flex = 'FLEX',
@@ -113,4 +114,8 @@ export class CreateCarProductsDto {
   @IsBoolean()
   @IsOptional()
   active: boolean;
+
+  @IsArray()
+  @IsOptional()
+  img: CreateImgDto[];
 }
