@@ -17,7 +17,6 @@ export class CarProduct {
   business: boolean;
   userId: string;
   active: boolean;
-  img?: Img[];
 
   constructor() {
     this.id = randomUUID();
