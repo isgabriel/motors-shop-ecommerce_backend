@@ -9,7 +9,6 @@ import { Address } from '../../entities/address.entity';
 export class AddressPrismaRepository implements AddressRepository {
   constructor(private prisma: PrismaService) {}
   async findOne(id: string, userId: string): Promise<Address> {
-    console.log(this.prisma);
     const address = await this.prisma.address.findUnique({
       where: {
         id,
@@ -21,10 +20,8 @@ export class AddressPrismaRepository implements AddressRepository {
     }
     return address;
   }
-  async update(
-    id: string,
-    updateAddressDto: UpdateAddressDto,
-  ): Promise<Address> {
+
+  async update(id: string, updateAddressDto: UpdateAddressDto): Promise<Address> {
     const address = await this.prisma.address.update({
       where: {
         id,
