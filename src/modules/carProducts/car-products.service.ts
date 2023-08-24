@@ -31,7 +31,7 @@ export class CarProductsService {
     return await this.carRepository.findAll();
   }
 
-  async findLogged(id:string) {
+  async findLogged(id: string) {
     return await this.carRepository.findLogged(id);
   }
 

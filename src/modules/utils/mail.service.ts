@@ -1,7 +1,7 @@
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
-import * as Mailgen from 'mailgen';
 import { SendEmailDto } from '../users/dto/send-email.dto';
+import * as Mailgen from 'mailgen';
 
 const mailGenerator = new Mailgen({
   theme: 'default',
@@ -23,7 +23,7 @@ export class MailService {
         html: text,
       })
       .then(() => console.log('Email send with sucess'))
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   }
 
   async resetPasswordTemplate(
@@ -41,7 +41,7 @@ export class MailService {
           button: {
             color: '#DC4D2F',
             text: 'Reset your password',
-            link: `http://localhost:3000/resetPassword/${resetToken}`,
+            link: `http://localhost:3000/ResetPassword/${resetToken}`,
           },
         },
         outro:
@@ -53,7 +53,7 @@ export class MailService {
 
     const emailTemplate = {
       to: userEmail,
-      subject: 'Reset password T15',
+      subject: 'Reset password Motors Shop',
       text: emailBody,
     };
 

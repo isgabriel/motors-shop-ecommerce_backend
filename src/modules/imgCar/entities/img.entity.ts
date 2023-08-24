@@ -4,7 +4,7 @@ import { randomUUID } from 'crypto';
 export class Img {
   readonly id: string;
   url_img: string;
-  readonly carProductsId: string;
+  carProductsId?: string;
 
   constructor() {
     this.id = randomUUID();

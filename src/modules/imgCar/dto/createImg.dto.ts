@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class CreateImgDto {
   @ApiProperty({
@@ -18,6 +18,6 @@ export class CreateImgDto {
     example: '39e647c3-d4df-4474-af8a-8c5d94aff9ec',
   })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   carProduct: string;
 }

@@ -1,21 +1,19 @@
 /* eslint-disable prettier/prettier */
-import {
-  ConflictException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { ConflictException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { randomUUID } from 'node:crypto';
+import { MailService } from '../utils/mail.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersRepository } from './repositories/users.repository';
-import { MailService } from '../utils/mail.service';
-import { randomUUID } from 'node:crypto';
 
+/**
+ * Service responsible for user manipulation.
+ *
+ * This service handles operations related to users, such as updating and removing.
+ */
 @Injectable()
 export class UsersService {
-  constructor(
-    private userRepository: UsersRepository,
-    private mailService: MailService,
-  ) {}
+  constructor(private userRepository: UsersRepository, private mailService: MailService) {}
 
   async create(createUserDto: CreateUserDto) {
     const findUser = await this.userRepository.findByEmail(createUserDto.email);
@@ -57,18 +55,26 @@ export class UsersService {
 
   async findOne(id: string) {
     const findUser = await this.userRepository.findOne(id);
-    if (!findUser) {
-      throw new NotFoundException('User not found');
-    }
+    if (!findUser) throw new NotFoundException('User not found');
+
     return findUser;
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(reqId: string, id: string, updateUserDto: UpdateUserDto) {
+    if (reqId !== id) throw new ForbiddenException('Insufficient permission');
+
+    const findUser = await this.userRepository.findOne(id);
+    if (!findUser) throw new NotFoundException('User not found');
+
+    return this.userRepository.update(id, updateUserDto);
   }
 
-  async remove(id: string) {
-    return `This action removes a #${id} user`;
+  async remove(reqId: string, id: string) {
+    if (reqId !== id) throw new ForbiddenException('Insufficient permission');
+
+    const findUser = await this.userRepository.findOne(id);
+    if (!findUser) throw new NotFoundException('User not found');
+    return this.userRepository.delete(id);
   }
 
   async sendEmailResetPassword(email: string) {
@@ -80,11 +86,7 @@ export class UsersService {
 
     await this.userRepository.updateToken(email, resetToken);
 
-    const resetPasswordTemplate = await this.mailService.resetPasswordTemplate(
-      email,
-      user.name,
-      resetToken,
-    );
+    const resetPasswordTemplate = await this.mailService.resetPasswordTemplate(email, user.name, resetToken);
     await this.mailService.sendEMail(resetPasswordTemplate);
   }
 

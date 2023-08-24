@@ -20,10 +20,6 @@ export abstract class CarProductRepository {
   abstract findAll(): Promise<CarProduct[]>;
   abstract findLogged(id: string): Promise<CarProduct[]>;
   abstract findOne(id: string): Promise<CarProduct>;
-  abstract update(
-    id: string,
-    data: UpdateCarProductDto,
-    userId: string
-  ): Promise<CarProduct> | CarProduct;
+  abstract update(id: string, data: UpdateCarProductDto, userId: string): Promise<CarProduct> | CarProduct;
   abstract delete(id: string, userId: string): Promise<void>;
 }
