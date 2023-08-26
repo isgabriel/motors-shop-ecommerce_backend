@@ -33,9 +33,9 @@ export class CommentsPrismaRepository implements CommentsRepository {
     return plainToInstance(Comment, commentsData);
   }
 
-  async findAll(userId: string): Promise<Comment[]> {
+  async findAll(carProductId: string): Promise<Comment[]> {
     const commentsData = await this.prisma.comments.findMany({
-      where: { userId },
+      where: { carProductId },
       include: {
         user: {
           select: { name: true },

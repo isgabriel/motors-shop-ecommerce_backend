@@ -19,8 +19,8 @@ export class CommentService {
     return await this.commentsRepository.create(carProductId, userId, createCommentDto);
   }
 
-  async findAll(userId: string) {
-    return await this.commentsRepository.findAll(userId);
+  async findAll(carProductId: string) {
+    return await this.commentsRepository.findAll(carProductId);
   }
 
   async update(commentaryId: string, userId: string, updateCommentDto: UpdateCommentDto) {
