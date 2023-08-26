@@ -25,7 +25,6 @@ export class CarProductPrismaRepository implements CarProductRepository {
     const images = data?.img;
     let newCar;
 
-    console.log(images);
     if (images) {
       newCar = await this.prisma.carProducts.create({
         data: {
@@ -86,6 +85,7 @@ export class CarProductPrismaRepository implements CarProductRepository {
             name: true,
           },
         },
+        comments: true,
       },
     });
 
@@ -140,6 +140,9 @@ export class CarProductPrismaRepository implements CarProductRepository {
     const car = await this.prisma.carProducts.update({
       where: { id: id, userId: userId },
       data,
+      include: {
+        comments: true,
+      },
     });
 
     return car;
