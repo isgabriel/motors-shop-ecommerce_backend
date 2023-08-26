@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Post, Body, Param, Delete, Request, UseGuards, Get, Patch } from '@nestjs/common';
+import { Controller, Post, Body, Param, Delete, Request, UseGuards, Get, Patch, ParseUUIDPipe } from '@nestjs/common';
 import { CommentService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -15,10 +15,9 @@ export class CommentController {
     return this.commentService.create(carProductId, req.user.id, createCommentDto);
   }
 
-  @Get('')
-  @UseGuards(JwtAuthGuard)
-  findAll(@Request() req) {
-    return this.commentService.findAll(req.user.id);
+  @Get(':id')
+  findOne(@Param('id', ParseUUIDPipe) carProductId: string) {
+    return this.commentService.findAll(carProductId);
   }
 
   @Patch(':id')

@@ -11,7 +11,7 @@ datasource db {
 }
 
 model CarProducts {
-  id          String   @id
+  id          String     @id
   coverImg    String
   price       Int
   year        Int
@@ -20,13 +20,13 @@ model CarProducts {
   color       String
   model       String
   brand       String
-  gasoline    Gasoline @default(FLEX)
+  gasoline    Gasoline   @default(FLEX)
   tablePife   Int
-  business    Boolean  @default(false)
+  business    Boolean    @default(false)
   img         Img[]
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
-  active      Boolean  @default(true)
+  active      Boolean    @default(true)
   comments    Comments[]
 
   @@map("carProducts")
@@ -62,7 +62,8 @@ model User {
   active      Boolean       @default(true)
   carProducts CarProducts[]
   address     Address?
-  comments     Comments[]
+  comments    Comments[]
+
   @@map("users")
 }
 
@@ -80,13 +81,13 @@ model Address {
   @@map("address")
 }
 
-model Comments{
-  id String @id @default(uuid())
-  comment String
-  createdAt DateTime @default(now())
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String
-  carProducts CarProducts @relation(fields: [carProductId],references: [id],onDelete: Cascade)
+model Comments {
+  id           String      @id @default(uuid())
+  comment      String
+  createdAt    DateTime    @default(now())
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
+  carProducts  CarProducts @relation(fields: [carProductId], references: [id], onDelete: Cascade)
   carProductId String
 
   @@map("comments")
