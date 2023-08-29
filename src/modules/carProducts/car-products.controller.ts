@@ -3,7 +3,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe, Query
 import { CarProductsService } from './car-products.service';
 import { CreateCarProductsDto } from './dto/create-car-product.dto';
 import { UpdateCarProductDto } from './dto/update-car-product.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Gasoline, Prisma } from '@prisma/client';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UseGuards } from '@nestjs/common';
@@ -15,6 +15,7 @@ export class CarProductsController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   create(@Body() createCarProductDto: CreateCarProductsDto, @Request() req) {
     return this.carProductsService.create(createCarProductDto, req.user.id);
   }
@@ -55,6 +56,7 @@ export class CarProductsController {
 
   @UseGuards(JwtAuthGuard)
   @Get('logged')
+  @ApiBearerAuth()
   findLogged(@Request() req) {
     return this.carProductsService.findLogged(req.user.id);
   }
@@ -66,12 +68,14 @@ export class CarProductsController {
 
   @Patch(':id')
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   update(@Param('id', ParseUUIDPipe) id: string, @Body() updateCarProductDto: UpdateCarProductDto, @Request() req) {
     return this.carProductsService.update(id, updateCarProductDto, req.user.id);
   }
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   remove(@Param('id', ParseUUIDPipe) id: string, @Request() req) {
     return this.carProductsService.remove(id, req.user.id);
   }
