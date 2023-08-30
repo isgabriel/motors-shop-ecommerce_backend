@@ -127,6 +127,7 @@ export class CarProductPrismaRepository implements CarProductRepository {
           select: {
             name: true,
             description: true,
+            telephone: true,
           },
         },
       },
