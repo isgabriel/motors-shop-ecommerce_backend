@@ -6,6 +6,8 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);
+  
+  
   app.useGlobalPipes(
     new ValidationPipe({ whitelist: true }),
     new ValidationPipe({
@@ -13,6 +15,8 @@ const bootstrap = async () => {
       transformOptions: { groups: ['transform'] },
     }),
   );
+
+  
 
   app.enableCors({ origin: 'http://localhost:3000' });
 

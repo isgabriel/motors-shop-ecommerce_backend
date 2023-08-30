@@ -99,7 +99,7 @@ export class CreateCarProductsDto {
 
   @ApiProperty({
     type: Boolean,
-    description: 'É um bom negócios',
+    description: 'É abaio da tabela Fipe?',
     example: true,
   })
   @IsBoolean()
