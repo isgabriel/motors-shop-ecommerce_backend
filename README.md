@@ -2,7 +2,7 @@
 
 ## Instalação e Execução
 
-É necessário ter instalado em sua máquina o `Node` e o gerenciador de pacotes `yarn`.
+É necessário ter instalado em sua máquina o `Node` e o gerenciador de pacotes `npm`.
 Para executar a aplicação localmente, siga estas etapas:
 
 1. Clone este repositório.
@@ -12,12 +12,12 @@ Para executar a aplicação localmente, siga estas etapas:
 5. Rode os comandos:
 
 ```
-    yarn
-    yarn add --save @nestjs/config swagger class-validator class-transformer
-    yarn add prisma -D
-    yarn add @prisma/client
-    yarn prisma migrate dev
-    yarn run start:dev
+    npm install
+    npm install --save @nestjs/config swagger class-validator class-transformer
+    npm install prisma -D
+    npm install @prisma/client
+    npx prisma migrate dev
+    npm run start:dev
 ```
 
 ## Rotas da API
