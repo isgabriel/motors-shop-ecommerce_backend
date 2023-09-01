@@ -1,13 +1,15 @@
 /* eslint-disable prettier/prettier */
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import 'dotenv/config';
+import { AppModule } from './app.module';
 
 const bootstrap = async () => {
+  const PORT: number = +process.env.SERVER_PORT || 3001;
+
   const app = await NestFactory.create(AppModule);
-  
-  
+
   app.useGlobalPipes(
     new ValidationPipe({ whitelist: true }),
     new ValidationPipe({
@@ -15,8 +17,6 @@ const bootstrap = async () => {
       transformOptions: { groups: ['transform'] },
     }),
   );
-
-  
 
   app.enableCors({ origin: 'http://localhost:3000' });
 
@@ -30,6 +30,6 @@ const bootstrap = async () => {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-  await app.listen(3001);
+  await app.listen(PORT);
 };
 bootstrap();
