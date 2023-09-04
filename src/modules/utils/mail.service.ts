@@ -8,7 +8,7 @@ const mailGenerator = new Mailgen({
   theme: 'default',
   product: {
     name: 'Motors Shop',
-    link: 'https://motorshopdb.onrender.com',
+    link: 'https://motor-shop-kenzie.vercel.app',
   },
 });
 
@@ -42,7 +42,7 @@ export class MailService {
           button: {
             color: '#DC4D2F',
             text: 'Reset your password',
-            link: `https://motorshopdb.onrender.com/ResetPassword/${resetToken}`,
+            link: `https://motor-shop-kenzie.vercel.app/ResetPassword/${resetToken}`,
           },
         },
         outro:
