@@ -1,0 +1,94 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model CarProducts {
+  id          String     @id
+  coverImg    String
+  price       Int
+  year        Int
+  km          Int
+  description String?
+  color       String
+  model       String
+  brand       String
+  gasoline    Gasoline   @default(FLEX)
+  tablePife   Int
+  business    Boolean    @default(false)
+  img         Img[]
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+  active      Boolean    @default(true)
+  comments    Comments[]
+
+  @@map("carProducts")
+}
+
+enum Gasoline {
+  FLEX
+  HIBRID
+  ELECTRIC
+}
+
+model Img {
+  id            String       @id @default(uuid())
+  url_img       String
+  carProduct    CarProducts? @relation(fields: [carProductsId], references: [id], onDelete: Cascade)
+  carProductsId String?
+
+  @@map("img")
+}
+
+model User {
+  id          String        @id
+  name        String
+  email       String        @unique
+  password    String
+  cpf         String        @unique
+  isAdmin     Boolean       @default(false)
+  telephone   String
+  description String?
+  birthdate   String
+  reset_token String?
+  createdAt   String
+  active      Boolean       @default(true)
+  carProducts CarProducts[]
+  address     Address?
+  comments    Comments[]
+
+  @@map("users")
+}
+
+model Address {
+  id         String @id
+  zip_code   String
+  state      String
+  city       String
+  street     String
+  number     Int
+  complement String
+  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String @unique
+
+  @@map("address")
+}
+
+model Comments {
+  id           String      @id @default(uuid())
+  comment      String
+  createdAt    DateTime    @default(now())
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
+  carProducts  CarProducts @relation(fields: [carProductId], references: [id], onDelete: Cascade)
+  carProductId String
+
+  @@map("comments")
+}
