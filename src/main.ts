@@ -18,7 +18,7 @@ const bootstrap = async () => {
     }),
   );
 
-  app.enableCors({ origin: 'http://localhost:3000' });
+  app.enableCors({ origin: ['http://localhost:3000', 'https://motor-shop-kenzie.vercel.app'] });
 
   const config = new DocumentBuilder()
     .setTitle('Documentação com Swagger - Motors Shop')
