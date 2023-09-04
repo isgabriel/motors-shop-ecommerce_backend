@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
 import { SendEmailDto } from '../users/dto/send-email.dto';
@@ -7,7 +8,7 @@ const mailGenerator = new Mailgen({
   theme: 'default',
   product: {
     name: 'Motors Shop',
-    link: 'http://localhost:3000',
+    link: 'https://motorshopdb.onrender.com',
   },
 });
 
@@ -41,7 +42,7 @@ export class MailService {
           button: {
             color: '#DC4D2F',
             text: 'Reset your password',
-            link: `http://localhost:3000/ResetPassword/${resetToken}`,
+            link: `https://motorshopdb.onrender.com/ResetPassword/${resetToken}`,
           },
         },
         outro:
